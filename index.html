@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DegenNews</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0F1724;
+            --panel: #0B1220;
+            --muted: #98A0B3;
+            --text: #E6EEF6;
+            --accent-1: #7C5CFF;
+            --accent-2: #00E0A8;
+            --accent-3: #FF6B6B;
+            --glass: rgba(255,255,255,0.03);
+        }
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+        }
+        .glass-card {
+            background: var(--panel);
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            transition: all 0.18s ease-out;
+        }
+        .glass-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 15px var(--accent-1);
+        }
+        .neon-border {
+            border: 2px solid;
+            border-image: linear-gradient(90deg, var(--accent-1), var(--accent-2)) 1;
+        }
+        .mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .confidence-badge {
+            font-size: 12px;
+            padding: 4px 8px;
+            border-radius: 12px;
+        }
+        .confidence-high { background-color: var(--accent-2); }
+        .confidence-medium { background-color: #FFD700; }
+        .confidence-low { background-color: var(--accent-3); }
+    </style>
+</head>
+<body class="min-h-screen">
+    <div id="app" class="flex">
+        <!-- Left Navigation -->
+        <nav class="hidden md:block w-16 border-r border-gray-800 p-4">
+            <div class="flex flex-col items-center gap-6">
+                <div class="w-10 h-10 bg-gradient-to-r from-[var(--accent-1)] to-[var(--accent-2)] rounded-lg"></div>
+                <i class="bi bi-house-door text-2xl"></i>
+                <i class="bi bi-fire text-2xl"></i>
+                <i class="bi bi-bell text-2xl"></i>
+                <i class="bi bi-person text-2xl"></i>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="flex-1 max-w-4xl mx-auto p-4">
+            <!-- Categories -->
+            <div class="flex gap-4 overflow-x-auto pb-4 mono">
+                <button class="px-4 py-2 rounded-full bg-[var(--accent-1)]">Crypto</button>
+                <button class="px-4 py-2 rounded-full bg-[var(--glass)]">Web3</button>
+                <button class="px-4 py-2 rounded-full bg-[var(--glass)]">AI</button>
+                <button class="px-4 py-2 rounded-full bg-[var(--glass)]">U.S.</button>
+                <button class="px-4 py-2 rounded-full bg-[var(--glass)]">Major</button>
+            </div>
+
+            <!-- News Feed -->
+            <div class="space-y-6 mt-6">
+                <article class="glass-card p-6" v-for="i in 3">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="text-xs bg-[var(--glass)] px-2 py-1 rounded-full">Crypto</span>
+                        <span class="confidence-badge confidence-medium mono">AI: 62%</span>
+                    </div>
+                    <h2 class="text-xl font-bold mb-3">Major DEX Hack — $8M drained</h2>
+                    <p class="text-[var(--muted)] mb-4">Auditors report a smart contract reentrancy attack drained $8M from a popular DEX. Chain analysis shows funds moved to Tornado-like mixers.</p>
+                    <div class="neon-border rounded-lg mb-4">
+                        <img src="https://images.unsplash.com/photo-1639762681485-074b7f938ba0?auto=format&fit=crop&w=800&h=400" alt="News Image" class="w-full rounded-lg">
+                    </div>
+                    <div class="flex items-center justify-between text-sm text-[var(--muted)]">
+                        <div class="flex items-center gap-4">
+                            <button class="flex items-center gap-1"><i class="bi bi-arrow-up-circle"></i> Verify</button>
+                            <button class="flex items-center gap-1"><i class="bi bi-share"></i> Share</button>
+                        </div>
+                        <div class="mono">
+                            <span>2m ago</span> • <span>chainlink-data</span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </main>
+
+        <!-- Right Action Rail -->
+        <aside class="hidden lg:block w-64 p-4 border-l border-gray-800">
+            <div class="glass-card p-4 mb-4">
+                <div class="flex items-center gap-2 mb-4">
+                    <div class="w-10 h-10 rounded-full bg-[var(--accent-1)]"></div>
+                    <div>
+                        <h3 class="font-bold">Anonymous</h3>
+                        <p class="text-xs mono text-[var(--muted)]">truth: 87% | verifications: 124</p>
+                    </div>
+                </div>
+                <div class="text-sm mono text-[var(--muted)]">
+                    Balance: 1000 $TRUTH
+                </div>
+            </div>
+            <button class="w-full bg-gradient-to-r from-[var(--accent-1)] to-[var(--accent-2)] py-2 rounded-lg mb-4">
+                Submit News
+            </button>
+            <h3 class="font-bold mb-2">Trending Tags</h3>
+            <div class="flex flex-wrap gap-2">
+                <span class="text-xs bg-[var(--glass)] px-2 py-1 rounded-full">#defi</span>
+                <span class="text-xs bg-[var(--glass)] px-2 py-1 rounded-full">#hack</span>
+                <span class="text-xs bg-[var(--glass)] px-2 py-1 rounded-full">#ethereum</span>
+            </div>
+        </aside>
+    </div>
+
+    <script>
+        const { createApp } = Vue
+        createApp({
+            data() {
+                return {
+                    // Add reactive data here
+                }
+            }
+        }).mount('#app')
+    </script>
+<script>document.body.addEventListener('wheel', e => { if (!e.ctrlKey) return; e.preventDefault(); return }, { passive: false })</script>
+	</body>
+</html>
